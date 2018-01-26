@@ -1,0 +1,2 @@
+#Sat Feb 25 15:35:55 CET 2012
+homeDir=C\:\\Documents and Settings\\francesco\\Documenti\\Ruggero
