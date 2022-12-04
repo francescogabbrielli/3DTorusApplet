@@ -36,9 +36,9 @@ public class JSliderField extends javax.swing.JPanel implements SwingConstants {
 
         setTickScale(1d);
 
-        //max = slider.getMaximum() * tickScale ;
-        //min = slider.getMinimum() * tickScale ;
-        //value = slider.getValue() * tickScale ;
+        //max = slider.getMaximum() * tickScale;
+        //min = slider.getMinimum() * tickScale;
+        //value = slider.getValue() * tickScale;
         textField.getDocument().addDocumentListener(new DocumentListener() {
             public void insertUpdate(DocumentEvent e) {
                 textModified = true;
@@ -188,7 +188,7 @@ public class JSliderField extends javax.swing.JPanel implements SwingConstants {
     }
 
     public void setMax(double max) {
-        //double old = this.max ;
+        //double old = this.max;
         this.max = max;
         int intval = (int) (max / tickScale);
         if (intval != slider.getMaximum()) {
@@ -202,7 +202,7 @@ public class JSliderField extends javax.swing.JPanel implements SwingConstants {
     }
 
     public void setMin(double min) {
-        //double old = this.min ;
+        //double old = this.min;
         this.min = min;
         int intval = (int) (min / tickScale);
         if (intval != slider.getMinimum()) {

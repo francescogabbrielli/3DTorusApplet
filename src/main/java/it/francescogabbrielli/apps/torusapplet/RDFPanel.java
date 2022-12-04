@@ -1,4 +1,4 @@
-package it.francescogabbrielli.apps.torusapplet ;
+package it.francescogabbrielli.apps.torusapplet;
 
 import java.awt.*;
 import java.util.*;
@@ -29,11 +29,11 @@ public class RDFPanel extends Panel implements SimulationListener {
 		double factor,r;
 
 		//TODO: check if this formula is right for 3D!!!
-		double rad = s.getRadius() ;
+		double rad = s.getRadius();
 		factor = (rad * rad * rad) /
 			(2.0 * Math.PI * s.getAtomsNumber() * s.getAtomsNumber() * s.getAtomsNumber() * NAVERAGE * deltaR);
 		
-		for(int i = 0; i < SIZE ; i++) {
+		for(int i = 0; i < SIZE; i++) {
 			r = ((double)i + 0.5) * deltaR;
 			data[i] = (data[i] * factor) / r;
 		}
@@ -52,12 +52,12 @@ public class RDFPanel extends Panel implements SimulationListener {
 	public void update(SimulationEvent evt) {
 		if(isEnabled()) {
 
-			SimulationSystem s = evt.getSystem() ;
+			SimulationSystem s = evt.getSystem();
 
 			Iterator<Atom> e1,e2;
 			Atom a1,a2;
 			PointND r = new PointND(3);
-			double r2 ;
+			double r2;
 			double cutoff = 10.0;
 			double cutoff2 = cutoff * cutoff;
 			int n;
@@ -84,15 +84,15 @@ public class RDFPanel extends Panel implements SimulationListener {
 				while(e2.hasNext()) {
 					a2 = e2.next();
 					if(a2 != a1)						
-						for(int kx=-1 ; kx<=1 ; kx++)
-							for(int ky=-1 ; ky<=1 ; ky++)
-								for(int kz=-1 ; kz<=1 ; kz++) {
-									r.setTo(a1) ;
-									r.add(a2, -1) ;
-									r.add(s.transform, s.X, kx) ;
-									r.add(s.transform, s.Y, ky) ;
-									r.add(s.transform, s.Z, kz) ;
-									r2 = r.squaredDistance() ;
+						for(int kx=-1; kx<=1; kx++)
+							for(int ky=-1; ky<=1; ky++)
+								for(int kz=-1; kz<=1; kz++) {
+									r.setTo(a1);
+									r.add(a2, -1);
+									r.add(s.transform, s.X, kx);
+									r.add(s.transform, s.Y, ky);
+									r.add(s.transform, s.Z, kz);
+									r2 = r.squaredDistance();
 									if(r2 < cutoff2) {
 										n = (int) Math.round(Math.sqrt(r2) / deltaR);
 										if(n >= SIZE) n = SIZE -1;

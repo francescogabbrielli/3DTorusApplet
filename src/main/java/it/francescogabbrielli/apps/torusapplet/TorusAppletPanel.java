@@ -68,8 +68,8 @@ public class TorusAppletPanel extends javax.swing.JPanel implements SimulationLi
         changed(new SimulationEvent(system, SimulationEvent.Property.TEMPERATURE));//temperature
 //
 //		//ratio's
-//		ySliderField.setValue(s.getY_xRatio()) ;
-//		zSliderField.setValue(s.getZ_xRatio()) ;
+//		ySliderField.setValue(s.getY_xRatio());
+//		zSliderField.setValue(s.getZ_xRatio());
         tilePanel.setVisible(false);
         //---------------------------------------------------------------
 
@@ -372,7 +372,7 @@ public class TorusAppletPanel extends javax.swing.JPanel implements SimulationLi
         tilePanel.setMinimumSize(new java.awt.Dimension(200, 148));
         tilePanel.setLayout(new java.awt.GridBagLayout());
 
-        //jSliderField1.setTickScale(0.01) ;
+        //jSliderField1.setTickScale(0.01);
         ySliderField.setBorder(javax.swing.BorderFactory.createTitledBorder("Y Ratio"));
         ySliderField.setColumns(4);
         ySliderField.setMax(2.0);
@@ -391,7 +391,7 @@ public class TorusAppletPanel extends javax.swing.JPanel implements SimulationLi
         gridBagConstraints.gridy = 1;
         tilePanel.add(ySliderField, gridBagConstraints);
 
-        //jSliderField1.setTickScale(0.01) ;
+        //jSliderField1.setTickScale(0.01);
         zSliderField.setBorder(javax.swing.BorderFactory.createTitledBorder("Z Ratio"));
         zSliderField.setColumns(4);
         zSliderField.setMax(2.0);
@@ -543,11 +543,11 @@ public class TorusAppletPanel extends javax.swing.JPanel implements SimulationLi
 	}//GEN-LAST:event_densityFieldKeyReleased
 
 	private void ySliderFieldStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ySliderFieldStateChanged
-            //simulation.setY_xRatio(ySliderField.getValue()) ;
+            //simulation.setY_xRatio(ySliderField.getValue());
 	}//GEN-LAST:event_ySliderFieldStateChanged
 
 	private void zSliderFieldStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_zSliderFieldStateChanged
-            //simulation.setZ_xRatio(zSliderField.getValue()) ;
+            //simulation.setZ_xRatio(zSliderField.getValue());
 	}//GEN-LAST:event_zSliderFieldStateChanged
 
 	private void yShearSliderFieldStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_yShearSliderFieldStateChanged
@@ -645,7 +645,13 @@ public class TorusAppletPanel extends javax.swing.JPanel implements SimulationLi
 
     @Override
     public void update(SimulationEvent evt) {
-        //nothing to update
+        if (evt.getSystem().isExploded()) {
+            stop();
+            JOptionPane.showMessageDialog(applet, String.format(
+                        "Total energy wa too high! %s atoms escaped the torus!",
+                        evt.getSystem().getAtomsNumber() - evt.getSystem().getSafeAtoms()),
+                "Explosion!", JOptionPane.WARNING_MESSAGE);
+        }
     }
 
     @Override

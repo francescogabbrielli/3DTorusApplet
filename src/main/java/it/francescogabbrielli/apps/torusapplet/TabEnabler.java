@@ -15,11 +15,11 @@ import javax.swing.JTabbedPane;
  */
 public class TabEnabler extends JPanel {
 
-	private JTabbedPane tab ;
+	private JTabbedPane tab;
 
     /** Creates new form BeanForm */
     public TabEnabler(JTabbedPane tab, String title) {
-		this.tab = tab ;
+		this.tab = tab;
         initComponents();
 		setTitle(title);
     }

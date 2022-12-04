@@ -1,4 +1,4 @@
-package it.francescogabbrielli.apps.torusapplet ;
+package it.francescogabbrielli.apps.torusapplet;
 
 import java.awt.*;
 

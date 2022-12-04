@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package it.francescogabbrielli.apps.torusapplet;
 
 import java.util.EventObject;
@@ -17,19 +12,19 @@ public class SimulationEvent extends EventObject {
 		DENSITY, TEMPERATURE, TRANSFORM, N_ATOMS
 	}
 
-	private Property property ;
+	private Property property;
 
 	public SimulationEvent(SimulationSystem source) {
-		super(source) ;
+		super(source);
 	}
 
 	public SimulationEvent(SimulationSystem source, Property p) {
-		super(source) ;
-		this.property = p ;
+		super(source);
+		this.property = p;
 	}
 
 	SimulationSystem getSystem() {
-		return (SimulationSystem) getSource() ;
+		return (SimulationSystem) getSource();
 	}
 
 	public Property getProperty() {

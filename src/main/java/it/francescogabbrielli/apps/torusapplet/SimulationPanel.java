@@ -34,18 +34,18 @@ public class SimulationPanel extends javax.swing.JPanel
 	   }
 	}
 
-	JApplet applet ;
-	SimulationSystem system ;
+	JApplet applet;
+	SimulationSystem system;
 
 	int width, height;
 	int mx, my;  // the most recently recorded mouse coordinates
 	Image backbuffer;
 	int azimuth = 35, elevation = 30;
 	PointND[] vertices, axis;
-	String[] axisLabels = new String[]{"0","x","y","z"} ;
+	String[] axisLabels = new String[]{"0","x","y","z"};
 	Edge[] edges;
-	double userScale = 5 ;
-	double perspective = 50 ;
+	double userScale = 5;
+	double perspective = 50;
 	
     /** Creates new form SimulationPanel */
     public SimulationPanel() {
@@ -85,13 +85,13 @@ public class SimulationPanel extends javax.swing.JPanel
 	}
 
 	public void setSystem(SimulationSystem s) {
-		this.system = s ;
+		this.system = s;
 		s.addSimulationListener(this);
 	}
 
 	public void setPerspective(double perspective) {
 		this.perspective = perspective;
-		near = perspective * system.getRadius() ;
+		near = perspective * system.getRadius();
 		refresh();
 	}
 
@@ -101,28 +101,28 @@ public class SimulationPanel extends javax.swing.JPanel
 			height = getSize().height;
 
 			double d = system.getRadius();
-			PointND e1 = new PointND(1d,0d,0d).times(system.transform) ;
-			PointND e2 = new PointND(0d,1d,0d).times(system.transform) ;
-			PointND e3 = new PointND(0d,0d,1d).times(system.transform) ;
-			scaleFactor = Math.min(width, height) / d / userScale ;
-			near = perspective * d ;  // distance from eye to near plane
+			PointND e1 = new PointND(1d,0d,0d).times(system.transform);
+			PointND e2 = new PointND(0d,1d,0d).times(system.transform);
+			PointND e3 = new PointND(0d,0d,1d).times(system.transform);
+			scaleFactor = Math.min(width, height) / d / userScale;
+			near = perspective * d;  // distance from eye to near plane
 			nearToObj = 1.5;  // distance from near plane to center of object
 			
-			//System.out.println(yShearY) ;
-			vertices[0] = new PointND(3).add(e1, -1d).add(e2, -1d).add(e3, -1d) ;
-			vertices[1] = new PointND(3).add(e1, -1d).add(e2, -1d).add(e3,  1d) ;
-			vertices[2] = new PointND(3).add(e1, -1d).add(e2,  1d).add(e3, -1d) ;
-			vertices[3] = new PointND(3).add(e1, -1d).add(e2,  1d).add(e3,  1d) ;
-			vertices[4] = new PointND(3).add(e1,  1d).add(e2, -1d).add(e3, -1d) ;
-			vertices[5] = new PointND(3).add(e1,  1d).add(e2, -1d).add(e3,  1d) ;
-			vertices[6] = new PointND(3).add(e1,  1d).add(e2,  1d).add(e3, -1d) ;
-			vertices[7] = new PointND(3).add(e1,  1d).add(e2,  1d).add(e3,  1d) ;
-			//System.out.println(vertices[0]) ;
+			//System.out.println(yShearY);
+			vertices[0] = new PointND(3).add(e1, -1d).add(e2, -1d).add(e3, -1d);
+			vertices[1] = new PointND(3).add(e1, -1d).add(e2, -1d).add(e3,  1d);
+			vertices[2] = new PointND(3).add(e1, -1d).add(e2,  1d).add(e3, -1d);
+			vertices[3] = new PointND(3).add(e1, -1d).add(e2,  1d).add(e3,  1d);
+			vertices[4] = new PointND(3).add(e1,  1d).add(e2, -1d).add(e3, -1d);
+			vertices[5] = new PointND(3).add(e1,  1d).add(e2, -1d).add(e3,  1d);
+			vertices[6] = new PointND(3).add(e1,  1d).add(e2,  1d).add(e3, -1d);
+			vertices[7] = new PointND(3).add(e1,  1d).add(e2,  1d).add(e3,  1d);
+			//System.out.println(vertices[0]);
 
-			axis[0] = new PointND(3) ;
-			axis[1] = new PointND(3).add(e1, 1.5d) ;
-			axis[2] = new PointND(3).add(e2, 1.5d) ;
-			axis[3] = new PointND(3).add(e3, 1.5d) ;
+			axis[0] = new PointND(3);
+			axis[1] = new PointND(3).add(e1, 1.5d);
+			axis[2] = new PointND(3).add(e2, 1.5d);
+			axis[3] = new PointND(3).add(e3, 1.5d);
 
 			backbuffer = createImage(width, height);
 			if(backbuffer!=null)
@@ -158,7 +158,7 @@ public class SimulationPanel extends javax.swing.JPanel
     }// </editor-fold>//GEN-END:initComponents
 
 	private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
-		init() ;
+		init();
 	}//GEN-LAST:event_formComponentResized
 
 	double cosT, sinT, cosP, sinP, cosTcosP, cosTsinP, sinTcosP, sinTsinP;
@@ -182,7 +182,7 @@ public class SimulationPanel extends javax.swing.JPanel
 		Point[] points;
 		Point[] axisPoints;
 		Point[] atomPoints;
-		axisPoints = new Point[axis.length] ;
+		axisPoints = new Point[axis.length];
 		atomPoints = new Point[system.atoms.size()];
 		points = new Point[vertices.length];
 		int j;
@@ -194,9 +194,9 @@ public class SimulationPanel extends javax.swing.JPanel
 		// draw the wireframe
 		g.setColor(Color.black);
 		g.fillRect(0, 0, width, height);
-		for(j=1 ; j<axis.length;j++) {
+		for(j=1; j<axis.length;j++) {
 			g.setColor(Color.lightGray);
-			g.drawLine( axisPoints[0].x, axisPoints[0].y, axisPoints[j].x, axisPoints[j].y) ;
+			g.drawLine( axisPoints[0].x, axisPoints[0].y, axisPoints[j].x, axisPoints[j].y);
 			g.setColor(Color.yellow);
 			g.drawString(axisLabels[j], axisPoints[j].x, axisPoints[j].y);
 		}
@@ -214,11 +214,11 @@ public class SimulationPanel extends javax.swing.JPanel
 
 			// draw points
 			g.setColor(Color.red);
-			Graphics2D g2 = (Graphics2D) g ;
+			Graphics2D g2 = (Graphics2D) g;
 			g2.setPaint(new GradientPaint(-3, -3, Color.white, 3,3, Color.red));
 			for (Point p : atomPoints) {
-				AffineTransform t = g2.getTransform() ;
-				g.translate(p.x, p.y) ;
+				AffineTransform t = g2.getTransform();
+				g.translate(p.x, p.y);
 				//g.fillOval(p.x- 3, p.y- 3, 7, 7);
 				g2.fillOval(- 3, - 3, 7, 7);
 				g2.setTransform(t);
@@ -229,14 +229,14 @@ public class SimulationPanel extends javax.swing.JPanel
 
 	/** TODO: reverse projection for collision detection */
 	private PointND get3D(Point point) {
-		PointND ret = new PointND(cosT, cosT, cosT) ;
-		double x2 = (point.x - width/2 - .5) / scaleFactor ;
-		double y2 = (height/2 - point.y + .5) / scaleFactor ;
+		PointND ret = new PointND(cosT, cosT, cosT);
+		double x2 = (point.x - width/2 - .5) / scaleFactor;
+		double y2 = (height/2 - point.y + .5) / scaleFactor;
 
 //		double z1 = cosTcosP * z0 - sinTcosP * x0 - sinP * y0;
-//		z1 = x1 / x2 * near - near - nearToObj ;
+//		z1 = x1 / x2 * near - near - nearToObj;
 //		z1 = y1 / y2 * near - near - nearToObj;
-		return ret ;
+		return ret;
 	}
 
 	private final Point project2D(PointND point) {
@@ -294,13 +294,13 @@ public class SimulationPanel extends javax.swing.JPanel
 	}
 
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		userScale += e.getWheelRotation() * 2 * Math.pow(Math.abs(userScale), 2/3d) *.1d ;
-		init() ;
+		userScale += e.getWheelRotation() * 2 * Math.pow(Math.abs(userScale), 2/3d) *.1d;
+		init();
 	}
 
 	public void refresh() {
 		drawWireframe(backbuffer.getGraphics());
-		repaint() ;
+		repaint();
 	}
 
 	@Override
@@ -320,7 +320,7 @@ public class SimulationPanel extends javax.swing.JPanel
 	}
 
 	public void init(SimulationEvent evt) {
-		init() ;
+		init();
 	}
 
 	public void changed(SimulationEvent evt) {
@@ -328,8 +328,8 @@ public class SimulationPanel extends javax.swing.JPanel
 			case DENSITY:
 			case N_ATOMS:
 			case TRANSFORM:
-				init() ;
-				break ;
+				init();
+				break;
 		}
 	}
 

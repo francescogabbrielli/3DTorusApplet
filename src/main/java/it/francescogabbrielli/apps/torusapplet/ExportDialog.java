@@ -14,7 +14,7 @@ import javax.swing.JFileChooser;
  */
 public class ExportDialog extends javax.swing.JDialog {
 
-    private File file ;
+    private File file;
 
     /** 
      * Creates new form ExportDialog 
@@ -32,7 +32,7 @@ public class ExportDialog extends javax.swing.JDialog {
     }
 
     public File getDir() {
-        return file!=null ? file.getParentFile() : jFileChooser1.getCurrentDirectory() ;
+        return file!=null ? file.getParentFile() : jFileChooser1.getCurrentDirectory();
     }
 
 
@@ -88,11 +88,11 @@ public class ExportDialog extends javax.swing.JDialog {
 
 	private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
 		if(evt.getActionCommand().equals(JFileChooser.APPROVE_SELECTION)) {
-			file = jFileChooser1.getSelectedFile() ;
+			file = jFileChooser1.getSelectedFile();
 			dispose();
 		} else if(evt.getActionCommand().equals(JFileChooser.CANCEL_SELECTION)) {
-			file = null ;
-			dispose() ;
+			file = null;
+			dispose();
 		}
 	}//GEN-LAST:event_jFileChooser1ActionPerformed
 
@@ -111,11 +111,11 @@ public class ExportDialog extends javax.swing.JDialog {
     }
 
     public double getRadius() {
-        return (Double) resizeSpinner.getValue() ;
+        return (Double) resizeSpinner.getValue();
     }
 
     public boolean isTranslated() {
-        return translateCheck.isSelected() ;
+        return translateCheck.isSelected();
     }
 
     public File getFile() {
@@ -123,7 +123,7 @@ public class ExportDialog extends javax.swing.JDialog {
     }
 
     public boolean isRun() {
-        return runCheck.isSelected() ;
+        return runCheck.isSelected();
     }
 
 }

@@ -3,6 +3,7 @@ This (standalone) applet is a simple three-dimensional simulation of a Lennard-J
 
 ![Screenshot](torusapplet.png)
 
+## Intro: GUI interface
 The atoms are initially set up on a square lattice, and given inital velocities to correspond to 150 degrees K. The timestep is 0.01 pico-seconds. To start the simulation, simply press the start button. The boundary conditions are periodic.
 
 To the right of the atomic display are several settings that you can control. The top checkbox controls velocity scaling . When this is on, it basically forces the simulation to stay near a particular temperature, by rescaling the velocities every few timesteps.
@@ -16,3 +17,18 @@ In the middle of the applet are three buttons, "start", "stop", and "reset." Cli
 Below the start, stop and reset buttons are several checkboxes. Clicking on any one of them will bring up a corresponding display panel directly below them. When you first start the simulation you should see the energy panel. Each panel will allow you to visually monitor different aspects of the simulation. There are four different panels, the RDF panel, the energy panel, the temperature panel, and the potential panel. Click on any of these names for more information on how each panel works.
 
 Clicking on the start button should start the simulation. You should be able to see the atoms moving around within the simulation box. Play around with the settings of applied temperature, and density and observe the changes in the various measurements shown in each panel. You also have the ability to change the potential in the potential panel.
+
+## Command Line
+The application can be run from command line and controlled with the following arguments.
+
+    java -jar torusapplet-vX.Y.Z.jar [options]
+
+Options:
+
+                     -n <nr>       atoms number (default is 20)
+            -t <temperature>       applied temperature (default is 150)
+                -d <density>       density (default is calculated on atoms number)
+                 --time <ms>       simulation time in milliseconds (default is 1000ms)
+    --translate <true/false>       translate to origin (default is false)
+        --transform <matrix>       transform (default is 5.3 0 0 0 5.3 0 0 0 5.3)
+                  -h, --help       this help message

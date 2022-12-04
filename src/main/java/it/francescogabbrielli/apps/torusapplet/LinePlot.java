@@ -1,4 +1,4 @@
-package it.francescogabbrielli.apps.torusapplet ;
+package it.francescogabbrielli.apps.torusapplet;
 
 import java.awt.*;
 
@@ -132,7 +132,7 @@ public class LinePlot extends Canvas {
 	// Determine the max and min y values.
 	min = buffer[0];
 	max = buffer[0];
-	for(int i = 1 ; i <= buffPoint ; i++) {
+	for(int i = 1; i <= buffPoint; i++) {
 	    if(buffer[i] < min) min = buffer[i];
 	    if(buffer[i] > max) max = buffer[i];
 	}
@@ -176,7 +176,7 @@ public class LinePlot extends Canvas {
 	// Determine the max and min y values.
 	min = data[start];
 	max = data[start];
-	for(int i = start + 1 ; i < data.length ; i++) {
+	for(int i = start + 1; i < data.length; i++) {
 	    if(data[i] < min) min = data[i];
 	    if(data[i] > max) max = data[i];
 	}
@@ -283,7 +283,7 @@ public class LinePlot extends Canvas {
 	len = data.length;
 	graphics.setColor(lineCol);
 	
-	for(int i = start + 1; i< len ; i++) {
+	for(int i = start + 1; i< len; i++) {
 	    window2device((((double)i*deltax) + xzero),data[i],d2);
 	    drawLine(d1,d2);
 	    d1.width = d2.width;
@@ -302,7 +302,7 @@ public class LinePlot extends Canvas {
 	len = buffPoint;
 	graphics.setColor(lineCol);
 	
-	for(int i = 1; i<= len ; i++) {
+	for(int i = 1; i<= len; i++) {
 	    window2device((double)i,buffer[i],d2);
 	    drawLine(d1,d2);
 	    d1.width = d2.width;
