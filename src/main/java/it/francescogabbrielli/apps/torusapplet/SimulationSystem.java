@@ -1,10 +1,11 @@
 package it.francescogabbrielli.apps.torusapplet;
 
 import Jama.Matrix;
-import java.util.Iterator;
-import java.util.ListIterator;
-import java.util.Random;
-import java.util.Vector;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.*;
 
 /**
  *
@@ -393,4 +394,35 @@ public class SimulationSystem {
 		for(SimulationListener l : listeners)
 			l.changed(evt);
 	}
+
+	public void export(File file, boolean translatedToOrigin, double radius) throws IOException {
+		PointND p = new PointND(3);
+		if(translatedToOrigin)
+			p.add(transform, X, 1).add(transform, Y, 1).add(transform, Z, 1);
+		double ratio = radius / getRadius();
+
+		try (PrintWriter w = new PrintWriter(file)) {
+			int i = 1;
+			w.format(Locale.US, "-f r -t s %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f -s -c -p k %s\n",
+					transform.get(0, 0) * ratio,
+					transform.get(1, 0) * ratio,
+					transform.get(2, 0) * ratio,
+					transform.get(0, 1) * ratio,
+					transform.get(1, 1) * ratio,
+					transform.get(2, 1) * ratio,
+					transform.get(0, 2) * ratio,
+					transform.get(1, 2) * ratio,
+					transform.get(2, 2) * ratio,
+					Main.getFilenameWithoutExtension(file) + "_unmunged.fe");
+			w.println(atoms.size());
+			for (Atom a : atoms) {
+				w.format(Locale.US, "%6.2f", (a.get(X)) * ratio / 2 + p.get(X));
+				w.format(Locale.US, "%6.2f", (a.get(Y)) * ratio / 2 + p.get(Y));
+				w.format(Locale.US, "%6.2f", (a.get(Z)) * ratio / 2 + p.get(Z));
+				w.println(":" + (i++));
+			}
+		}
+	}
+
+
 }

@@ -168,35 +168,10 @@ public class TorusAppletMenuBar extends JMenuBar {
 			d.setSystem(s);
 			d.setVisible(true);
 			if(d.getFile() != null) {
-				PointND translate = new PointND(3);
-				if(d.isTranslated())
-					translate.add(s.transform, X, 1).add(s.transform, Y, 1).add(s.transform, Z, 1);
-				double ratio = d.getRadius() / s.getRadius();
-				
-				try (PrintWriter w = new PrintWriter(d.getFile())) {
-					int i = 1;
-					w.format(Locale.US, "-f r -t s %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f -s -c -p k %s\n",
-							s.transform.get(0, 0)*ratio,
-							s.transform.get(1, 0)*ratio,
-							s.transform.get(2, 0)*ratio,
-							s.transform.get(0, 1)*ratio,
-							s.transform.get(1, 1)*ratio,
-							s.transform.get(2, 1)*ratio,
-							s.transform.get(0, 2)*ratio,
-							s.transform.get(1, 2)*ratio,
-							s.transform.get(2, 2)*ratio,
-							getFilenameWithoutExtension(d.getFile())+ "_unmunged.fe");
-					w.println(s.atoms.size());
-					for(Atom a : s.atoms) {
-						w.format(Locale.US, "%6.2f", (a.get(X))*ratio / 2 + translate.get(X));
-						w.format(Locale.US, "%6.2f", (a.get(Y))*ratio / 2 + translate.get(Y));
-						w.format(Locale.US, "%6.2f", (a.get(Z))*ratio / 2 + translate.get(Z));
-						w.println(":"+(i++));
-					}
-					homeDir = d.getDir();
-                    if (d.isRun())
-                        runVCS(d.getFile());
-                }
+                s.export(d.getFile(), d.isTranslated(), d.getRadius());
+                homeDir = d.getDir();
+                if (d.isRun())
+                    Main.runVCS(d.getFile(), homeDir);
             }
             
 		} catch(Exception e) {
@@ -205,39 +180,6 @@ public class TorusAppletMenuBar extends JMenuBar {
 
 	}//GEN-LAST:event_exportItemActionPerformed
 
-    private String getFilenameWithoutExtension(File f) {
-        String n = f.getName();
-        int dot = n.lastIndexOf(".");
-        if(dot>0)
-            n = n.substring(0, dot);
-        return n;
-    }
-    
-    private void runVCS(File f) {
-        try {
-            Runtime runtime = Runtime.getRuntime();
-            Process p = runtime.exec(String.format("cmd /c vcs < %s", f.getName()), null, homeDir);
-            p.waitFor();
-            System.out.println("VCS OK");
-            String n = getFilenameWithoutExtension(f);
-            p = runtime.exec(String.format("cmd /c torus_munge < %s_unmunged.fe > %s.fe", n, n), null, homeDir);
-            p.waitFor();
-            System.out.println("TORUS_MUNGE OK");
-            /*ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "evolver", n+".fe");
-            pb.directory(homeDir);
-            p = pb.start();
-            DataInputStream in = new DataInputStream(p.getInputStream());
-            String line;
-
-            while((line=in.readLine())!=null) {
-                System.out.println(line);
-            }
-            new DataOutputStream(p.getOutputStream()).writeUTF("\n");
-            System.out.println("EVOLVER OK");*/
-        } catch(Exception e) {
-            e.printStackTrace();
-        }    
-    }
     
 	private void exitItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitItemActionPerformed
 		try {
