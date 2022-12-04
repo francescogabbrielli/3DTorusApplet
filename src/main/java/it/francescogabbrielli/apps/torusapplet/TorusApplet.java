@@ -14,8 +14,6 @@ public class TorusApplet extends JApplet {
 
 	private TorusAppletMenuBar menubar ;
 
-	public static final String VERSION = "0.3.0 (test)" ;
-
 	public TorusApplet() {
 		try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

@@ -1,0 +1,3 @@
+target/
+**/torusapplet.conf
+nbactions.xml

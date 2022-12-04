@@ -6,7 +6,9 @@
 package it.francescogabbrielli.apps.torusapplet;
 
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.Locale;
+import java.util.Properties;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,6 +18,8 @@ import javax.swing.JOptionPane;
 public class TorusAppletPanel extends javax.swing.JPanel implements SimulationListener {
 
     private final static double DENSITY_SLIDER_TICK = 0.001d;
+    
+    private final Properties properties;
 
     private TorusApplet applet;
 
@@ -26,6 +30,12 @@ public class TorusAppletPanel extends javax.swing.JPanel implements SimulationLi
      * Creates new form TorusAppletPanel
      */
     public TorusAppletPanel() {
+        properties = new Properties();
+        try {
+            properties.load(getClass().getResourceAsStream("/app.properties"));
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
         initComponents();
     }
 
@@ -672,7 +682,10 @@ public class TorusAppletPanel extends javax.swing.JPanel implements SimulationLi
     }
 
     void about() {
-        JOptionPane.showMessageDialog(this, "Based on Java Molecular Dynamics applet by David Wolff\nFrancesco Gabbrielli, 2010", "3D Torus Applet v" + TorusApplet.VERSION, JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, 
+                "Based on Java Molecular Dynamics applet by David Wolff\nFrancesco Gabbrielli, 2010", 
+                properties.getProperty("title") + " - v" + properties.getProperty("version"), 
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     void help() {

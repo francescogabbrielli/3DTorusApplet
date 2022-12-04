@@ -21,38 +21,33 @@ import java.util.*;
  */
 public class AppletViewer extends javax.swing.JFrame
 		implements ActionListener, AppletStub, AppletContext {
-
-	private JApplet applet ;
+    
+    private final JApplet applet;
 
     /** Creates new form AppletViewer */
     public AppletViewer(JApplet applet) {
 
-	    /*try {
+        try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch(Exception e) {
             e.printStackTrace();
-        }*/
-		
-		this.applet = applet ;
-		//setTitle ("AppletViewer: "+applet.getClass().getCanonicalName());
-		/*JMenu m = new JMenu ("File");
-		JMenuItem mi = new JMenuItem ("Quit");
-		mi.addActionListener (this);
-		m.add (mi);
-		JMenuBar mb = new JMenuBar ();
-		applet.setJMenuBar(mb) ;
-		mb.add (m);*/
-		//setJMenuBar (mb);
-		applet.setStub (this);
-		initComponents();
+        }
+        this.applet = applet;
+        initComponents();
     }
-
-	public void start() {
-		getContentPane().add (applet, BorderLayout.CENTER);
-		setVisible(true);
-		applet.init ();
-		applet.start();
-	}
+    
+    /**
+     * Start the applet
+     * @param applet 
+     */
+    @SuppressWarnings("deprecation")
+    public void start() {
+        getContentPane().add(applet, BorderLayout.CENTER);
+        setVisible(true);
+        applet.setStub(this);
+        applet.init();
+        applet.start();
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.

@@ -1,2 +1,0 @@
-#Sun Feb 04 00:21:42 CET 2018
-homeDir=/home/francesco/NetBeansProjects/3DTorusApplet/C\:\\Documents and Settings\\francesco\\Documenti\\Ruggero
