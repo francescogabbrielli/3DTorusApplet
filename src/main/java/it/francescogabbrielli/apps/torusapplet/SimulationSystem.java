@@ -22,13 +22,13 @@ public class SimulationSystem {
 	public Matrix transform, inverse;
 	public double temp;
 
-	private Random rand;
+	private final Random rand;
 
 	public double pe;
 	public double ke;
 	public double te;
 	private long ts = 1;
-	private double mass = 39.948;
+	private final double mass = 39.948;
 	// Configurable parameters (by user)
 	private double density;
 	private boolean scaling = true;

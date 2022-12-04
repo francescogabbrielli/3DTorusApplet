@@ -24,11 +24,11 @@ The application can be run from command line and controlled with the following a
     java -jar torusapplet-vX.Y.Z.jar [options]
 
 Options:
-
-                     -n <nr>       atoms number (default is 20)
-            -t <temperature>       applied temperature (default is 150)
-                -d <density>       density (default is calculated on atoms number)
-                 --time <ms>       simulation time in milliseconds (default is 1000ms)
-    --translate <true/false>       translate to origin (default is false)
-        --transform <matrix>       transform (default is 5.3 0 0 0 5.3 0 0 0 5.3)
-                  -h, --help       this help message
+               -f <name>       filename (default is coords.txt)
+                 -n <nr>       atoms number (default is 20)
+        -t <temperature>       applied temperature (default is 150)
+            -d <density>       density (default is calculated on atoms number)
+             --time <ms>       simulation time in milliseconds (default is 1000ms)
+    --transform <matrix>       transform (default is 5.3 0 0 0 5.3 0 0 0 5.3)
+             --translate       translate to origin
+              -h, --help       this help message

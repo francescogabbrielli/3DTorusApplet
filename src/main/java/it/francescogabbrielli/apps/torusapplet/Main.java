@@ -83,7 +83,7 @@ public class Main {
                         System.out.printf("%25s\tdensity (default is calculated on atoms number)%n", "-d <density>");
                         System.out.printf("%25s\tsimulation time in milliseconds (default is 1000ms)%n", "--time <ms>");
                         System.out.printf("%25s\ttransform (default is 5.3 0 0 0 5.3 0 0 0 5.3)%n", "--transform <matrix>");
-                        System.out.printf("%25s\ttranslate to origin (default is false)%n", "--translate");
+                        System.out.printf("%25s\ttranslate to origin%n", "--translate");
                         System.out.printf("%25s\tthis help message%n", "-h, --help");
                         System.out.println();
                         System.exit(-1);
