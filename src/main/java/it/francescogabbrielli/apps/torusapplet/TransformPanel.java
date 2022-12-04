@@ -3,7 +3,6 @@
  *
  * Created on 14-dic-2010, 12.21.03
  */
-
 package it.francescogabbrielli.apps.torusapplet;
 
 import Jama.Matrix;
@@ -19,26 +18,26 @@ import javax.swing.JTextField;
  */
 public class TransformPanel extends javax.swing.JPanel implements KeyListener, SimulationListener {
 
-	SimulationThread simulation ;
-	SimulationSystem system ;
+	SimulationThread simulation;
+	SimulationSystem system;
 
-	JTextField[] fields = new JTextField[9] ;
+	JTextField[] fields = new JTextField[9];
 
     /** Creates new form TransformPanel */
     public TransformPanel(SimulationSystem s) {
-		this.system = s ;
-		s.addSimulationListener(this) ;
+		this.system = s;
+		s.addSimulationListener(this);
         initComponents();
 
-		fields[0] = a11Field ;
-		fields[1] = a12Field ;
-		fields[2] = a13Field ;
-		fields[3] = a21Field ;
-		fields[4] = a22Field ;
-		fields[5] = a23Field ;
-		fields[6] = a31Field ;
-		fields[7] = a32Field ;
-		fields[8] = a33Field ;
+		fields[0] = a11Field;
+		fields[1] = a12Field;
+		fields[2] = a13Field;
+		fields[3] = a21Field;
+		fields[4] = a22Field;
+		fields[5] = a23Field;
+		fields[6] = a31Field;
+		fields[7] = a32Field;
+		fields[8] = a33Field;
 		for(int i=0;i<9;i++)
 			fields[i].addKeyListener(this);
 		
@@ -48,7 +47,7 @@ public class TransformPanel extends javax.swing.JPanel implements KeyListener, S
 	private void resetTransform() {
 		for(int i=0;i<3;i++)
 			for(int j=0;j<3;j++)
-				fields[i*3+j].setText(String.format(Locale.US, "%6.6f", system.transform.get(i, j))) ;
+				fields[i*3+j].setText(String.format(Locale.US, "%6.6f", system.transform.get(i, j)));
 	}
 
     /** This method is called from within the constructor to
@@ -162,14 +161,14 @@ public class TransformPanel extends javax.swing.JPanel implements KeyListener, S
 	public void keyReleased(KeyEvent evt) {
 		if(evt.getKeyCode()==KeyEvent.VK_ENTER) {
 			try {
-				double[][] a = new double[3][3] ;
+				double[][] a = new double[3][3];
 				for(int i=0;i<3;i++)
 					for(int j=0;j<3;j++)
-						a[i][j] = Double.parseDouble(fields[i*3+j].getText()) ;
-				Matrix A = new Matrix(a) ;
+						a[i][j] = Double.parseDouble(fields[i*3+j].getText());
+				Matrix A = new Matrix(a);
 				if(A.cond()>15)
-					throw new Exception("Almost Singular Transform") ;
-				system.setTransform(A) ;
+					throw new Exception("Almost Singular Transform");
+				system.setTransform(A);
 			} catch(Exception e) {
 				resetTransform();
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Attention!", JOptionPane.WARNING_MESSAGE);
@@ -188,7 +187,7 @@ public class TransformPanel extends javax.swing.JPanel implements KeyListener, S
 	public void changed(SimulationEvent evt) {
 		switch(evt.getProperty()) {
 			case TRANSFORM:
-				resetTransform() ;
+				resetTransform();
 		}
 	}
 

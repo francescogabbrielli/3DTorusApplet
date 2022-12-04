@@ -7,15 +7,15 @@ package it.francescogabbrielli.apps.torusapplet;
  */
 public class SimulationThread extends Thread {
 
-	private SimulationSystem system ;
+	private final SimulationSystem system;
 
-	private boolean ok ;
-	private boolean running ;
+	private boolean ok;
+	private boolean running;
 
 	public SimulationThread() {
-		system = new SimulationSystem(20, 150d, 5.3d) ;
+		system = new SimulationSystem(20, 150d, 5.3d);
 		setDaemon(true);
-		ok = true ;
+		ok = true;
 	}
 
 	public SimulationSystem getSystem() {
@@ -32,14 +32,14 @@ public class SimulationThread extends Thread {
 
 	@Override
 	public void run() {
-		running = true ;
+		running = true;
 		system.calcForces();
 		system.measurements();
-		SimulationEvent evt = new SimulationEvent(system) ;
+		SimulationEvent evt = new SimulationEvent(system);
 		system.fireUpdate(evt);
 		while (ok) {
 			if(running) {
-				long t = System.currentTimeMillis() ;
+				long t = System.currentTimeMillis();
 				synchronized(this) {
 					system.integrate1();
 					system.calcForces();
@@ -47,6 +47,8 @@ public class SimulationThread extends Thread {
 					system.measurements();
 					system.scaleTemp();
 					system.fireUpdate(evt);
+					if (system.isExploded())
+						running = false;
 				}
 				try {
 					sleep(Math.max(10, 40+t-System.currentTimeMillis()));
@@ -64,7 +66,7 @@ public class SimulationThread extends Thread {
 	}
 
 	public void close() {
-		ok = false ;
+		ok = false;
 	}
 
 }

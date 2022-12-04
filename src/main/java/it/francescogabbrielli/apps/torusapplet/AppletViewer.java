@@ -92,7 +92,7 @@ public class AppletViewer extends javax.swing.JFrame
 	}//GEN-LAST:event_formComponentResized
 
 	private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-		close() ;
+		close();
 	}//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -200,8 +200,8 @@ public class AppletViewer extends javax.swing.JFrame
 	} // actionPerformed
 
 	public void close() {
-		applet.stop() ;
-		dispose() ;
+		applet.stop();
+		dispose();
 	}
 
 }

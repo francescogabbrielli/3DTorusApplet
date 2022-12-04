@@ -10,9 +10,9 @@ import javax.swing.UIManager;
  */
 public class TorusApplet extends JApplet {
 
-	private TorusAppletPanel panel ;
+	private TorusAppletPanel panel;
 
-	private TorusAppletMenuBar menubar ;
+	private TorusAppletMenuBar menubar;
 
 	public TorusApplet() {
 		try {
@@ -26,24 +26,24 @@ public class TorusApplet extends JApplet {
 		panel.setSimulation(new SimulationThread());
 		getContentPane().add(panel);
 
-		menubar = new TorusAppletMenuBar() ;
+		menubar = new TorusAppletMenuBar();
 		setJMenuBar(menubar);
 	}
 
 	TorusAppletMenuBar getMenu() {
-		return (TorusAppletMenuBar) getJMenuBar() ;
+		return (TorusAppletMenuBar) getJMenuBar();
 	}
 
 	TorusAppletPanel getPanel() {
-		return panel ;
+		return panel;
 	}
 
 	SimulationSystem getSystem() {
-		return panel.getSystem() ;
+		return panel.getSystem();
 	}
 
 	SimulationThread getSimulation() {
-		return panel.getSimulation() ;
+		return panel.getSimulation();
 	}
 
     /**
@@ -53,13 +53,13 @@ public class TorusApplet extends JApplet {
 	@Override
     public void init() {
 		if(!(getParent() instanceof JComponent))
-			menubar.initApplet() ;
+			menubar.initApplet();
     }
 
 	@Override
 	public void stop() {
-		menubar.close() ;
-		getSimulation().close() ;
+		menubar.close();
+		getSimulation().close();
 	}
 
 }

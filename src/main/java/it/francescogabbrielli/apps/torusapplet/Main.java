@@ -10,7 +10,17 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new AppletViewer(new TorusApplet()).start();
+
+        //GUI run
+        if (args.length == 0) {
+            new AppletViewer(new TorusApplet()).start();
+        }
+
+        //Command Line run
+        for (String arg : args) {
+
+        }
+
     }
 
 }

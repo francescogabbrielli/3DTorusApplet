@@ -30,24 +30,24 @@ import static it.francescogabbrielli.apps.torusapplet.SimulationSystem.*;
  */
 public class TorusAppletMenuBar extends JMenuBar {
 
-	Properties props ;
+	Properties props;
 
-	File homeDir ;
+	File homeDir;
 
     /** Creates new form BeanForm */
     public TorusAppletMenuBar() {
         initComponents();
-		props = new Properties() ;
+		props = new Properties();
 		try {
 			props.load(new FileInputStream("torusapplet.conf"));
-			homeDir = new File(props.getProperty("homeDir")) ;
+			homeDir = new File(props.getProperty("homeDir"));
 		} catch(Exception e) {
 			//JOptionPane.showMessageDialog(this, "Cannot open config file", "");
 		}
     }
 
 	TorusApplet getApplet() {
-		return (TorusApplet) getTopLevelAncestor() ;
+		return (TorusApplet) getTopLevelAncestor();
 	}
 
 	public JMenuItem getStartItem() {
@@ -63,7 +63,7 @@ public class TorusAppletMenuBar extends JMenuBar {
 	public void close() {
 		if(homeDir!=null) {
 			try {
-				props.setProperty("homeDir", homeDir.getAbsolutePath()) ;
+				props.setProperty("homeDir", homeDir.getAbsolutePath());
 				props.store(new PrintWriter("torusapplet.conf"), null);
 			} catch(Exception e) {
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Cannot save config", JOptionPane.ERROR_MESSAGE);
@@ -153,28 +153,28 @@ public class TorusAppletMenuBar extends JMenuBar {
     }// </editor-fold>//GEN-END:initComponents
 
 	private void exportItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportItemActionPerformed
-		TorusApplet t = getApplet() ;
+		TorusApplet t = getApplet();
 		t.getPanel().stop();
-		SimulationSystem s = t.getSystem() ;
+		SimulationSystem s = t.getSystem();
 		try {
-			Frame v = null ;
+			Frame v = null;
 			if(t.getParent() instanceof JComponent)
-				v = (Frame) ((JComponent) t.getParent()).getTopLevelAncestor() ;
+				v = (Frame) ((JComponent) t.getParent()).getTopLevelAncestor();
 			else
-				v = (Frame) t.getParent() ;
-			ExportDialog d = new ExportDialog(v, true) ;
-			d.setDir(homeDir) ;
-			d.setLocationRelativeTo(v) ;
-			d.setSystem(s) ;
-			d.setVisible(true) ;
+				v = (Frame) t.getParent();
+			ExportDialog d = new ExportDialog(v, true);
+			d.setDir(homeDir);
+			d.setLocationRelativeTo(v);
+			d.setSystem(s);
+			d.setVisible(true);
 			if(d.getFile() != null) {
-				PointND translate = new PointND(3) ;
+				PointND translate = new PointND(3);
 				if(d.isTranslated())
-					translate.add(s.transform, X, 1).add(s.transform, Y, 1).add(s.transform, Z, 1) ;
-				double ratio = d.getRadius() / s.getRadius() ;
+					translate.add(s.transform, X, 1).add(s.transform, Y, 1).add(s.transform, Z, 1);
+				double ratio = d.getRadius() / s.getRadius();
 				
 				try (PrintWriter w = new PrintWriter(d.getFile())) {
-					int i = 1 ;
+					int i = 1;
 					w.format(Locale.US, "-f r -t s %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f -s -c -p k %s\n",
 							s.transform.get(0, 0)*ratio,
 							s.transform.get(1, 0)*ratio,
@@ -185,15 +185,15 @@ public class TorusAppletMenuBar extends JMenuBar {
 							s.transform.get(0, 2)*ratio,
 							s.transform.get(1, 2)*ratio,
 							s.transform.get(2, 2)*ratio,
-							getFilenameWithoutExtension(d.getFile())+ "_unmunged.fe") ;
-					w.println(s.atoms.size()) ;
+							getFilenameWithoutExtension(d.getFile())+ "_unmunged.fe");
+					w.println(s.atoms.size());
 					for(Atom a : s.atoms) {
-						w.format(Locale.US, "%6.2f", (a.get(X))*ratio / 2 + translate.get(X)) ;
-						w.format(Locale.US, "%6.2f", (a.get(Y))*ratio / 2 + translate.get(Y)) ;
-						w.format(Locale.US, "%6.2f", (a.get(Z))*ratio / 2 + translate.get(Z)) ;
-						w.println(":"+(i++)) ;
+						w.format(Locale.US, "%6.2f", (a.get(X))*ratio / 2 + translate.get(X));
+						w.format(Locale.US, "%6.2f", (a.get(Y))*ratio / 2 + translate.get(Y));
+						w.format(Locale.US, "%6.2f", (a.get(Z))*ratio / 2 + translate.get(Z));
+						w.println(":"+(i++));
 					}
-					homeDir = d.getDir() ;
+					homeDir = d.getDir();
                     if (d.isRun())
                         runVCS(d.getFile());
                 }
@@ -206,34 +206,34 @@ public class TorusAppletMenuBar extends JMenuBar {
 	}//GEN-LAST:event_exportItemActionPerformed
 
     private String getFilenameWithoutExtension(File f) {
-        String n = f.getName() ;
-        int dot = n.lastIndexOf(".") ;
+        String n = f.getName();
+        int dot = n.lastIndexOf(".");
         if(dot>0)
-            n = n.substring(0, dot) ;
+            n = n.substring(0, dot);
         return n;
     }
     
     private void runVCS(File f) {
         try {
-            Runtime runtime = Runtime.getRuntime() ;
-            Process p = runtime.exec(String.format("cmd /c vcs < %s", f.getName()), null, homeDir) ;
-            p.waitFor() ;
-            System.out.println("VCS OK") ;
+            Runtime runtime = Runtime.getRuntime();
+            Process p = runtime.exec(String.format("cmd /c vcs < %s", f.getName()), null, homeDir);
+            p.waitFor();
+            System.out.println("VCS OK");
             String n = getFilenameWithoutExtension(f);
-            p = runtime.exec(String.format("cmd /c torus_munge < %s_unmunged.fe > %s.fe", n, n), null, homeDir) ;
-            p.waitFor() ;
-            System.out.println("TORUS_MUNGE OK") ;
-            /*ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "evolver", n+".fe") ;
-            pb.directory(homeDir) ;
-            p = pb.start() ;
-            DataInputStream in = new DataInputStream(p.getInputStream()) ;
-            String line ;
+            p = runtime.exec(String.format("cmd /c torus_munge < %s_unmunged.fe > %s.fe", n, n), null, homeDir);
+            p.waitFor();
+            System.out.println("TORUS_MUNGE OK");
+            /*ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "evolver", n+".fe");
+            pb.directory(homeDir);
+            p = pb.start();
+            DataInputStream in = new DataInputStream(p.getInputStream());
+            String line;
 
             while((line=in.readLine())!=null) {
-                System.out.println(line) ;
+                System.out.println(line);
             }
-            new DataOutputStream(p.getOutputStream()).writeUTF("\n") ;
-            System.out.println("EVOLVER OK") ;*/
+            new DataOutputStream(p.getOutputStream()).writeUTF("\n");
+            System.out.println("EVOLVER OK");*/
         } catch(Exception e) {
             e.printStackTrace();
         }    
@@ -241,11 +241,11 @@ public class TorusAppletMenuBar extends JMenuBar {
     
 	private void exitItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitItemActionPerformed
 		try {
-			TorusApplet t = getApplet() ;
-			t.stop() ;
+			TorusApplet t = getApplet();
+			t.stop();
 			if(t.getParent() instanceof JComponent) {
-				AppletViewer v = (AppletViewer) ((JComponent) t.getParent()).getTopLevelAncestor() ;
-				v.close() ;
+				AppletViewer v = (AppletViewer) ((JComponent) t.getParent()).getTopLevelAncestor();
+				v.close();
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -253,23 +253,23 @@ public class TorusAppletMenuBar extends JMenuBar {
 	}//GEN-LAST:event_exitItemActionPerformed
 
 	private void startItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startItemActionPerformed
-		TorusAppletPanel p = getApplet().getPanel() ;
-		p.toggle() ;
+		TorusAppletPanel p = getApplet().getPanel();
+		p.toggle();
 	}//GEN-LAST:event_startItemActionPerformed
 
 	private void resetItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetItemActionPerformed
-		TorusAppletPanel p = getApplet().getPanel() ;
-		p.reset() ;
+		TorusAppletPanel p = getApplet().getPanel();
+		p.reset();
 	}//GEN-LAST:event_resetItemActionPerformed
 
 	private void aboutItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutItemActionPerformed
-		TorusAppletPanel p = getApplet().getPanel() ;
-		p.about() ;
+		TorusAppletPanel p = getApplet().getPanel();
+		p.about();
 	}//GEN-LAST:event_aboutItemActionPerformed
 
 	private void guideItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guideItemActionPerformed
-		TorusAppletPanel p = getApplet().getPanel() ;
-		p.help() ;
+		TorusAppletPanel p = getApplet().getPanel();
+		p.help();
 	}//GEN-LAST:event_guideItemActionPerformed
 
 
