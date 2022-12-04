@@ -19,4 +19,16 @@ Below the start, stop and reset buttons are several checkboxes. Clicking on any 
 Clicking on the start button should start the simulation. You should be able to see the atoms moving around within the simulation box. Play around with the settings of applied temperature, and density and observe the changes in the various measurements shown in each panel. You also have the ability to change the potential in the potential panel.
 
 ## Command Line
-The application can be run from command line and controlled with the following arguments 
+The application can be run from command line and controlled with the following arguments.
+
+    java -jar torusapplet-vX.Y.Z.jar [options]
+
+Options:
+
+                     -n <nr>       atoms number (default is 20)
+            -t <temperature>       applied temperature (default is 150)
+                -d <density>       density (default is calculated on atoms number)
+                 --time <ms>       simulation time in milliseconds (default is 1000ms)
+    --translate <true/false>       translate to origin (default is false)
+        --transform <matrix>       transform (default is 5.3 0 0 0 5.3 0 0 0 5.3)
+                  -h, --help       this help message
