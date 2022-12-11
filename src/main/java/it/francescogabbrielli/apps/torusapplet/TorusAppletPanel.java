@@ -5,7 +5,8 @@
  */
 package it.francescogabbrielli.apps.torusapplet;
 
-import java.awt.event.KeyEvent;
+import java.awt.*;
+import java.awt.event.*;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.Properties;
@@ -24,6 +25,7 @@ public class TorusAppletPanel extends javax.swing.JPanel implements SimulationLi
     private TorusApplet applet;
 
     private SimulationThread simulation;
+
     private SimulationSystem system;
 
     /**
@@ -103,7 +105,7 @@ public class TorusAppletPanel extends javax.swing.JPanel implements SimulationLi
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
+        GridBagConstraints gridBagConstraints;
 
         panel = new javax.swing.JPanel();
         simPanel = new javax.swing.JPanel();
@@ -136,28 +138,24 @@ public class TorusAppletPanel extends javax.swing.JPanel implements SimulationLi
         yShearSliderField = new it.francescogabbrielli.apps.torusapplet.JSliderField();
         zShearSliderField = new it.francescogabbrielli.apps.torusapplet.JSliderField();
 
-        setLayout(new java.awt.BorderLayout());
+        setLayout(new BorderLayout());
 
-        panel.setLayout(new java.awt.BorderLayout());
+        panel.setLayout(new BorderLayout());
 
-        simPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.white, java.awt.Color.white, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        simPanel.setLayout(new java.awt.BorderLayout());
+        simPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, Color.white, Color.white, Color.darkGray, Color.darkGray));
+        simPanel.setLayout(new BorderLayout());
 
-        perspectiveSlider.setBackground(new java.awt.Color(0, 0, 0));
-        perspectiveSlider.setForeground(new java.awt.Color(204, 204, 255));
+        perspectiveSlider.setBackground(new Color(0, 0, 0));
+        perspectiveSlider.setForeground(new Color(204, 204, 255));
         perspectiveSlider.setMaximum(50);
         perspectiveSlider.setMinimum(10);
         perspectiveSlider.setOrientation(javax.swing.JSlider.VERTICAL);
         perspectiveSlider.setSnapToTicks(true);
         perspectiveSlider.setToolTipText("Perspective");
-        perspectiveSlider.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                perspectiveSliderStateChanged(evt);
-            }
-        });
-        simPanel.add(perspectiveSlider, java.awt.BorderLayout.WEST);
+        perspectiveSlider.addChangeListener(this::perspectiveSliderStateChanged);
+        simPanel.add(perspectiveSlider, BorderLayout.WEST);
 
-        simulationPanel.setBackground(new java.awt.Color(0, 0, 0));
+        simulationPanel.setBackground(new Color(0, 0, 0));
 
         javax.swing.GroupLayout simulationPanelLayout = new javax.swing.GroupLayout(simulationPanel);
         simulationPanel.setLayout(simulationPanelLayout);
@@ -170,39 +168,39 @@ public class TorusAppletPanel extends javax.swing.JPanel implements SimulationLi
             .addGap(0, 529, Short.MAX_VALUE)
         );
 
-        simPanel.add(simulationPanel, java.awt.BorderLayout.CENTER);
+        simPanel.add(simulationPanel, BorderLayout.CENTER);
 
-        panel.add(simPanel, java.awt.BorderLayout.CENTER);
-        panel.add(tab, java.awt.BorderLayout.SOUTH);
+        panel.add(simPanel, BorderLayout.CENTER);
+        panel.add(tab, BorderLayout.SOUTH);
 
-        add(panel, java.awt.BorderLayout.CENTER);
+        add(panel, BorderLayout.CENTER);
 
-        leftPanel.setLayout(new java.awt.GridBagLayout());
+        leftPanel.setLayout(new GridBagLayout());
 
         controlScroll.setBorder(javax.swing.BorderFactory.createTitledBorder("Controls"));
 
-        controlPanel.setMinimumSize(new java.awt.Dimension(200, 264));
-        controlPanel.setLayout(new java.awt.GridBagLayout());
+        controlPanel.setMinimumSize(new Dimension(200, 264));
+        controlPanel.setLayout(new GridBagLayout());
 
         tempField.setColumns(5);
-        tempField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
+        tempField.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent evt) {
                 tempFieldKeyReleased(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 0, 4);
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
+        gridBagConstraints.insets = new Insets(4, 4, 0, 4);
         controlPanel.add(tempField, gridBagConstraints);
 
         tempLabel.setText("Applied Temp:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 0, 4);
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
+        gridBagConstraints.insets = new Insets(4, 4, 0, 4);
         controlPanel.add(tempLabel, gridBagConstraints);
 
         tempSlider.setMajorTickSpacing(500);
@@ -210,39 +208,35 @@ public class TorusAppletPanel extends javax.swing.JPanel implements SimulationLi
         tempSlider.setMinimum(1);
         tempSlider.setMinorTickSpacing(100);
         tempSlider.setPaintTicks(true);
-        tempSlider.setPreferredSize(new java.awt.Dimension(120, 24));
-        tempSlider.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                tempSliderStateChanged(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        tempSlider.setPreferredSize(new Dimension(120, 24));
+        tempSlider.addChangeListener(this::tempSliderStateChanged);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new Insets(0, 0, 10, 0);
         controlPanel.add(tempSlider, gridBagConstraints);
 
         jLabel2.setText("Density:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 0, 4);
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
+        gridBagConstraints.insets = new Insets(4, 4, 0, 4);
         controlPanel.add(jLabel2, gridBagConstraints);
 
         densityField.setColumns(5);
-        densityField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
+        densityField.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent evt) {
                 densityFieldKeyReleased(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 0, 4);
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
+        gridBagConstraints.insets = new Insets(4, 4, 0, 4);
         controlPanel.add(densityField, gridBagConstraints);
 
         densitySlider.setMaximum(150);
@@ -250,67 +244,47 @@ public class TorusAppletPanel extends javax.swing.JPanel implements SimulationLi
         densitySlider.setMinorTickSpacing(10);
         densitySlider.setPaintTicks(true);
         densitySlider.setValue(12);
-        densitySlider.setPreferredSize(new java.awt.Dimension(120, 24));
-        densitySlider.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                densitySliderStateChanged(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        densitySlider.setPreferredSize(new Dimension(120, 24));
+        densitySlider.addChangeListener(this::densitySliderStateChanged);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new Insets(0, 0, 10, 0);
         controlPanel.add(densitySlider, gridBagConstraints);
 
         scalingCheck.setText("Velocity Scaling");
-        scalingCheck.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                scalingCheckStateChanged(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        scalingCheck.addChangeListener(this::scalingCheckStateChanged);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.anchor = GridBagConstraints.NORTH;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
         controlPanel.add(scalingCheck, gridBagConstraints);
 
         startButton.setText("Start");
-        startButton.setMargin(new java.awt.Insets(2, 2, 2, 2));
-        startButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                startButtonActionPerformed(evt);
-            }
-        });
+        startButton.setMargin(new Insets(2, 2, 2, 2));
+        startButton.addActionListener(this::startButtonActionPerformed);
         btnsPanel.add(startButton);
 
         stopButton.setText("Stop");
         stopButton.setEnabled(false);
-        stopButton.setMargin(new java.awt.Insets(2, 2, 2, 2));
-        stopButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stopButtonActionPerformed(evt);
-            }
-        });
+        stopButton.setMargin(new Insets(2, 2, 2, 2));
+        stopButton.addActionListener(this::stopButtonActionPerformed);
         btnsPanel.add(stopButton);
 
         resetButton.setText("Reset");
-        resetButton.setMargin(new java.awt.Insets(2, 2, 2, 2));
-        resetButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resetButtonActionPerformed(evt);
-            }
-        });
+        resetButton.setMargin(new Insets(2, 2, 2, 2));
+        resetButton.addActionListener(this::resetButtonActionPerformed);
         btnsPanel.add(resetButton);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
         controlPanel.add(btnsPanel, gridBagConstraints);
 
         atomsSlider.setMajorTickSpacing(50);
@@ -318,59 +292,56 @@ public class TorusAppletPanel extends javax.swing.JPanel implements SimulationLi
         atomsSlider.setMinorTickSpacing(10);
         atomsSlider.setPaintTicks(true);
         atomsSlider.setValue(20);
-        atomsSlider.setPreferredSize(new java.awt.Dimension(120, 24));
-        atomsSlider.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                atomsSliderStateChanged(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        atomsSlider.setPreferredSize(new Dimension(120, 24));
+        atomsSlider.addChangeListener(this::atomsSliderStateChanged);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new Insets(0, 0, 10, 0);
         controlPanel.add(atomsSlider, gridBagConstraints);
 
         atomsLabel.setText("Atoms:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 0, 4);
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
+        gridBagConstraints.insets = new Insets(4, 4, 0, 4);
         controlPanel.add(atomsLabel, gridBagConstraints);
 
         atomsField.setColumns(5);
-        atomsField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
+        atomsField.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent evt) {
                 atomsFieldKeyReleased(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 0, 4);
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
+        gridBagConstraints.insets = new Insets(4, 4, 0, 4);
         controlPanel.add(atomsField, gridBagConstraints);
 
-        angstromLabel.setForeground(new java.awt.Color(204, 0, 0));
+        angstromLabel.setForeground(new Color(204, 0, 0));
         angstromLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         angstromLabel.setText("Angstrom X");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         controlPanel.add(angstromLabel, gridBagConstraints);
 
         controlScroll.setViewportView(controlPanel);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = GridBagConstraints.NORTH;
         leftPanel.add(controlScroll, gridBagConstraints);
 
-        tilePanel.setMinimumSize(new java.awt.Dimension(200, 148));
-        tilePanel.setLayout(new java.awt.GridBagLayout());
+        tilePanel.setMinimumSize(new Dimension(200, 148));
+        tilePanel.setLayout(new GridBagLayout());
 
         //jSliderField1.setTickScale(0.01);
         ySliderField.setBorder(javax.swing.BorderFactory.createTitledBorder("Y Ratio"));
@@ -379,14 +350,10 @@ public class TorusAppletPanel extends javax.swing.JPanel implements SimulationLi
         ySliderField.setMin(0.5);
         ySliderField.setMinorTickSpacing(5);
         ySliderField.setOrientation(1);
-        ySliderField.setPreferredSize(new java.awt.Dimension(98, 90));
+        ySliderField.setPreferredSize(new Dimension(98, 90));
         ySliderField.setTickScale(0.01);
-        ySliderField.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                ySliderFieldStateChanged(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        ySliderField.addChangeListener(this::ySliderFieldStateChanged);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         tilePanel.add(ySliderField, gridBagConstraints);
@@ -398,35 +365,31 @@ public class TorusAppletPanel extends javax.swing.JPanel implements SimulationLi
         zSliderField.setMin(0.5);
         zSliderField.setMinorTickSpacing(5);
         zSliderField.setOrientation(1);
-        zSliderField.setPreferredSize(new java.awt.Dimension(98, 90));
+        zSliderField.setPreferredSize(new Dimension(98, 90));
         zSliderField.setTickScale(0.01);
         zSliderField.setValue(1.2);
-        zSliderField.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                zSliderFieldStateChanged(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        zSliderField.addChangeListener(this::zSliderFieldStateChanged);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         tilePanel.add(zSliderField, gridBagConstraints);
 
-        angstromLabel2.setForeground(new java.awt.Color(204, 0, 0));
+        angstromLabel2.setForeground(new Color(204, 0, 0));
         angstromLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         angstromLabel2.setText("Angstrom Z");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         tilePanel.add(angstromLabel2, gridBagConstraints);
 
-        angstromLabel1.setForeground(new java.awt.Color(204, 0, 0));
+        angstromLabel1.setForeground(new Color(204, 0, 0));
         angstromLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         angstromLabel1.setText("Angstrom Y");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         tilePanel.add(angstromLabel1, gridBagConstraints);
 
         yShearSliderField.setBorder(javax.swing.BorderFactory.createTitledBorder("Y Shear"));
@@ -434,18 +397,14 @@ public class TorusAppletPanel extends javax.swing.JPanel implements SimulationLi
         yShearSliderField.setMax(90.0);
         yShearSliderField.setMin(1.0);
         yShearSliderField.setMinorTickSpacing(5);
-        yShearSliderField.setPreferredSize(new java.awt.Dimension(200, 58));
+        yShearSliderField.setPreferredSize(new Dimension(200, 58));
         yShearSliderField.setValue(90.0);
-        yShearSliderField.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                yShearSliderFieldStateChanged(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        yShearSliderField.addChangeListener(this::yShearSliderFieldStateChanged);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         tilePanel.add(yShearSliderField, gridBagConstraints);
 
         zShearSliderField.setBorder(javax.swing.BorderFactory.createTitledBorder("Z Shear"));
@@ -453,34 +412,30 @@ public class TorusAppletPanel extends javax.swing.JPanel implements SimulationLi
         zShearSliderField.setMax(90.0);
         zShearSliderField.setMin(1.0);
         zShearSliderField.setMinorTickSpacing(5);
-        zShearSliderField.setPreferredSize(new java.awt.Dimension(200, 58));
+        zShearSliderField.setPreferredSize(new Dimension(200, 58));
         zShearSliderField.setValue(90.0);
-        zShearSliderField.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                zShearSliderFieldStateChanged(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        zShearSliderField.addChangeListener(this::zShearSliderFieldStateChanged);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         tilePanel.add(zShearSliderField, gridBagConstraints);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         leftPanel.add(tilePanel, gridBagConstraints);
 
-        add(leftPanel, java.awt.BorderLayout.WEST);
+        add(leftPanel, BorderLayout.WEST);
     }// </editor-fold>//GEN-END:initComponents
 
-	private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
+	private void startButtonActionPerformed(ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
             start();
 	}//GEN-LAST:event_startButtonActionPerformed
 
-	private void stopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopButtonActionPerformed
+	private void stopButtonActionPerformed(ActionEvent evt) {//GEN-FIRST:event_stopButtonActionPerformed
             stop();
 	}//GEN-LAST:event_stopButtonActionPerformed
 
@@ -497,7 +452,7 @@ public class TorusAppletPanel extends javax.swing.JPanel implements SimulationLi
             system.setAtomsNumber(atomsSlider.getValue());
 	}//GEN-LAST:event_atomsSliderStateChanged
 
-	private void atomsFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_atomsFieldKeyReleased
+	private void atomsFieldKeyReleased(KeyEvent evt) {//GEN-FIRST:event_atomsFieldKeyReleased
             if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
                 String old = atomsField.getText();
                 try {
@@ -508,7 +463,7 @@ public class TorusAppletPanel extends javax.swing.JPanel implements SimulationLi
             }
 	}//GEN-LAST:event_atomsFieldKeyReleased
 
-	private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
+	private void resetButtonActionPerformed(ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
             reset();
 	}//GEN-LAST:event_resetButtonActionPerformed
 
@@ -520,7 +475,7 @@ public class TorusAppletPanel extends javax.swing.JPanel implements SimulationLi
             system.setApplTemp(tempSlider.getValue());
 	}//GEN-LAST:event_tempSliderStateChanged
 
-	private void tempFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tempFieldKeyReleased
+	private void tempFieldKeyReleased(KeyEvent evt) {//GEN-FIRST:event_tempFieldKeyReleased
             if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
                 String old = tempField.getText();
                 try {
@@ -531,7 +486,7 @@ public class TorusAppletPanel extends javax.swing.JPanel implements SimulationLi
             }
 	}//GEN-LAST:event_tempFieldKeyReleased
 
-	private void densityFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_densityFieldKeyReleased
+	private void densityFieldKeyReleased(KeyEvent evt) {//GEN-FIRST:event_densityFieldKeyReleased
             if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
                 String old = densityField.getText();
                 try {

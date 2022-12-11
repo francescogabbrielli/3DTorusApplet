@@ -51,7 +51,7 @@ public class SimulationThread extends Thread {
 						running = false;
 				}
 				try {
-					sleep(Math.max(10, 40+t-System.currentTimeMillis()));
+					sleep(Math.max(5, 40+t-System.currentTimeMillis()));
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

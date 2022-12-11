@@ -22,13 +22,13 @@ public class SimulationSystem {
 	public Matrix transform, inverse;
 	public double temp;
 
-	private Random rand;
+	private final Random rand;
 
 	public double pe;
 	public double ke;
 	public double te;
 	private long ts = 1;
-	private double mass = 39.948;
+	private final double mass = 39.948;
 	// Configurable parameters (by user)
 	private double density;
 	private boolean scaling = true;
@@ -56,6 +56,7 @@ public class SimulationSystem {
         setTransform(Matrix.identity(3, 3).times(d));
 		this.applTemp = t;
 		rand = new Random();
+		rand.setSeed(System.currentTimeMillis());
 		createAtoms();
 		resetDensity();
     }
@@ -137,18 +138,15 @@ public class SimulationSystem {
 	}
 
 	public void scaleTemp() {
-		if (ts % 10 == 0) {
-			if (scaling) {
-				double sum = 0.0;
-				for (int i = 0; i < 10; i++)
-					sum += keArray[i];
-				sum /= 10;
-				double scaleFactor = Math.pow((KB * atomsNumber * applTemp) / sum, 1d/3);
-				for(Atom a : atoms)
-					a.v.times(scaleFactor);
-			}
+		if (scaling && ts++ % 10 == 0) {
+			double sum = 0.0;
+			for (int i = 0; i < 10; i++)
+				sum += keArray[i];
+			sum /= 10;
+			double scaleFactor = Math.pow((KB * atomsNumber * applTemp) / sum, 1d/3);
+			for(Atom a : atoms)
+				a.v.times(scaleFactor);
 		}
-		ts++;
 	}
 
 	public void measurements() {
@@ -395,7 +393,7 @@ public class SimulationSystem {
 			l.changed(evt);
 	}
 
-	public void export(File file, boolean translatedToOrigin, double radius) throws IOException {
+	public synchronized void export(File file, boolean translatedToOrigin, double radius) throws IOException {
 		PointND p = new PointND(3);
 		if(translatedToOrigin)
 			p.add(transform, X, 1).add(transform, Y, 1).add(transform, Z, 1);

@@ -2,8 +2,12 @@ package it.francescogabbrielli.apps.torusapplet;
 
 import Jama.Matrix;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 /**
- * Punto (o vettore) n-dimensionale
+ * N-dimensional point (or vector)
  * 
  * @author Francesco Gabbrielli
  */
@@ -16,16 +20,13 @@ public class PointND {
 	}
 
 	public PointND(double... coords) {
-		if(coords.length==0)
+		if (coords.length==0)
 			throw new IllegalArgumentException("Null length array");
 		this.coords = coords;
 	}
 
 	public boolean isInTorus() {
-		for(int i=0;i<coords.length;i++)
-			if (coords[i] <= -1 || coords[i] > 1)
-				return false;
-		return true;
+		return Arrays.stream(coords).noneMatch(coord -> coord <= -1 || coord > 1);
 	}
 
 	public int getDimension() {
@@ -40,40 +41,35 @@ public class PointND {
 		coords[component] = value;
 	}
 
-	public void setTo(PointND other) {
-		for(int i=0; i<coords.length; i++)
-			coords[i] = other.coords[i];
-	}
+	public void setTo(PointND other) { Arrays.setAll(coords, other::get); }
 
 	public void add(PointND... others) {
-		for(PointND other : others)
-			for(int i=0; i<coords.length; i++)
+		for (PointND other : others)
+			for (int i=0; i<coords.length; i++)
 				coords[i] += other.coords[i];
 	}
 
 	public PointND add(PointND other, double scalar) {
-		for(int i=0; i<coords.length; i++)
+		for (int i=0; i<coords.length; i++)
 			coords[i] += other.coords[i] * scalar;
 		return this;
 	}
 
     public PointND add(Matrix A, int column, double scalar) {
-        for(int i=0; i<coords.length; i++)
+        for (int i=0; i<coords.length; i++)
             coords[i] += A.get(i, column) * scalar;
 		return this;
     }
 
 	public PointND times(double scalar) {
-		for(int i=0;i<coords.length;i++)
+		for (int i=0; i<coords.length; i++)
 			coords[i] *= scalar;
 		return this;
 	}
 
 	public double times(PointND other) {
-		double ret = 0d;
-		for(int i=0;i<coords.length;i++)
-			ret += coords[i] * other.coords[i];
-		return ret;
+		return IntStream.range(0, coords.length)
+				.mapToDouble(i -> coords[i] * other.coords[i]).sum();
 	}
 
 	public PointND times(Matrix A, PointND buffer) {
@@ -85,10 +81,10 @@ public class PointND {
 		return timesImpl(A, new PointND(coords.length));
 	}
 
-	private final PointND timesImpl(Matrix A, PointND x) {
+	private PointND timesImpl(Matrix A, PointND x) {
         int d = coords.length;
-        for(int i=0;i<d;i++)
-            for(int j=0;j<d;j++)
+        for (int i=0; i<d; i++)
+            for (int j=0; j<d; j++)
                 x.coords[i] += A.get(i, j) * coords[j];
         return x;
     }
@@ -96,19 +92,11 @@ public class PointND {
 
 	@Override
 	public String toString() {
-		StringBuffer ret = new StringBuffer("(");
-		for(double coord : coords)
-			ret.append(coord).append(", ");
-		ret.deleteCharAt(ret.length()-2);
-		ret.append(")");
-		return ret.toString();
+		return Arrays.stream(coords).mapToObj(String::valueOf).collect(Collectors.joining(", "));
 	}
 	
 	public double norm1() {
-		double norm = 0;
-		for(double coord : coords)
-			norm += Math.abs(coord);
-		return norm;
+		return Arrays.stream(coords).map(Math::abs).sum();
 	}
 
 	public double norm2() {
@@ -116,24 +104,19 @@ public class PointND {
 	}
 
 	public double squaredDistance() {
-		double sd = 0d;
-		for(int i=0;i<coords.length;i++)
-			sd += coords[i]*coords[i];
-		return sd;
+		return Arrays.stream(coords).map(coord -> coord * coord).sum();
 	}
 
-	public double squaredDistance(PointND other) {
+	public double squaredDistance(final PointND other) {
 		//if(other.getDimension()!=coords.length)
 		//	throw new IllegalArgumentException(String.format("Cannot compute distance of points of different dimensions: %d <> %d", coords.length, other.getDimension()));
-		double sd = 0d;
-		for(int i=0;i<coords.length;i++)
-			sd += coords[i]*coords[i] + other.coords[i]*other.coords[i] - 2 * coords[i] * other.coords[i];
-		return sd;
+		return IntStream.range(0, coords.length)
+				.mapToDouble(i -> coords[i]*coords[i] + other.coords[i]*other.coords[i] - 2*coords[i]*other.coords[i])
+				.sum();
 	}
 
 	public void clear() {
-		for(int i = 0; i<coords.length; i++)
-			coords[i] = 0;
+		Arrays.fill(coords, 0);
 	}
 
     public Matrix asMatrix() {

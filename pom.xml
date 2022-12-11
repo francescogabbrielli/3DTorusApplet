@@ -6,7 +6,7 @@
 
     <groupId>it.francescogabbrielli.apps</groupId>
     <artifactId>torusapplet</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
 
     <name>3D Torus Applet</name>

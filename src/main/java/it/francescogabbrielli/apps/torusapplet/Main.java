@@ -25,7 +25,7 @@ public class Main {
         }
 
         //Command Line run
-        try {
+        else try {
 
             Properties properties = new Properties();
             try {
